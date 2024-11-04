@@ -1,0 +1,27 @@
+<h1>Наша продукция:</h1>
+
+<script src="<%= asset_path 'alert.js' %>"></script>
+
+<table cellpadding="10" cellspacing="0" border="1">
+<% @products.each do |product| %>
+  <tr>
+    <td>
+      <h2><%= product.title %></h2>
+      <p><strong>Описание:</strong> <%= product.description %></p>
+    </td>
+
+    <!---<td><img src="<%= product.path_to_image %>" alt="<%= product.title %>"></td> --->
+
+    <td><img src="<%= asset_path(product.path_to_image.split('/')[2]) %>" alt="<%= product.title %>"></td> 
+
+    <td>
+      <p><strong>Цена:</strong> <%= product.price %> руб.</p>
+      <p><strong>Размер:</strong> <%= product.size %> см</p>
+      <p><button onclick="add_to_cart(<%= product.id %>)">Добавить в корзину</button></p> 
+
+    <!---  <p><button onclick="alert('hello!')">Добавить в корзину</button></p>--->
+
+    </td>
+  </tr>
+<% end %>
+</table>

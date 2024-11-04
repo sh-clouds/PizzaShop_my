@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Pizza Shop My" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>  
+  </head>
+
+  <body>
+
+    <p><a href="/">Главная страница</a> | <a href="/products">Наша продукция</a>
+
+      <!---  <form action="/cart" method="POST"> --->
+      <!--- <form action= "carts#create", url: carts_path, method="POST"> 
+        <input type="hidden" name="orders" id="orders_input"> 
+        <input type="text" name="orders" id="orders_input">
+        <input type="submit" id="orders_button">
+      </form>--->
+
+      <%= form_for :carts, url: carts_path, method: :post, data: {turbo:false}  do |f| %>
+        <input type="text" name="orders" id="orders_input">
+        <input type="submit" id="orders_button">
+      <% end %>
+
+    </p>
+
+
+    <%= yield %>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="<%= asset_path 'alert.js' %>"></script>  
+
+  <script>
+    $(function() {
+      update_orders_input();
+      update_orders_button();
+    });
+  </script>
+
+  </body>
+</html>
